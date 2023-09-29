@@ -9,16 +9,17 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const openai = new OpenAIApi({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 app.post("/", async (request, response) => {
-  const { chats } = request.body;
-
+  const { prompt } = request.body;
+  console.log(prompt[0])
   const result = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [...chats],
+    messages: [...prompt],
   });
+  console.log(result)
 
   response.json({
     output: result.choices[0].message.content,
